@@ -50,7 +50,7 @@ function getMovie(arrayName) {
             var pPlot = $('<p>').text(response.Plot);
             var imgPoster = $('<img>').attr('src', response.Poster);
             var d = $('<div>').append(pTitle, imgPoster, pPlot, pActors);
-            $('#movieList').prepend(d);
+            $('#movieList').html(d);
         })
 };
 
@@ -62,8 +62,6 @@ var city;
 var queryURLWeather;
 
 console.log(queryURLWeather)
-
-
 
 // Here we run our AJAX call to the OpenWeatherMap API
 $(document).on('click', ".cName", function () {

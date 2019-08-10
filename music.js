@@ -56,7 +56,7 @@ function getMovie(){
          var pPlot = $('<p>').text(response.Plot);
          var imgPoster = $('<img>').attr('src', response.Poster);
          var d = $('<div>').append(pTitle, imgPoster, pPlot, pActors);
-        $('#movieList').prepend(d);
+        $('#movieList').html(d);
          })
      };
 

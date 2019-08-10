@@ -19,7 +19,7 @@ function createButtons(cName) {
 //function that adding new button with new city
 $("#citySubmit").on("click", function (event) {
     var newCity = $("#cityChoice").val();
-    console.log(newCity);
+    console.log(`Chosen City: ` + newCity);
     createButtons(newCity);
     popCities.push(newCity);
     event.preventDefault();
@@ -27,13 +27,32 @@ $("#citySubmit").on("click", function (event) {
 });
 /// This is where out Music API JS is //////////////////////////////////////
 var apiKey = '?api_key=UPVjVwevOqPChTS9FFJ6lm8GhpmtVLPm';
-var searchHot = ["sweating", "very hot", "summer fun"];
-var searchGood = ["chilling", "relax time", "nice weather"];
-var searchCold = ["brrr", "i am freezing", "blizzard"];
-var apiURL;
-var q = "The Terminator";
+var searchRain = ["The Notebook", "The Goonies", "Finding Nemo"];
+var searchClear = ["Meet The Fockers", "Toy Story", "Ferris Buelers Day Off"];
+var searchCloudy = ["Cloudy with a chance of meatballs", "The Fault in Our Stars", "Inside Out"];
+var searchSnow = ["Jack Frost", "Snow Day", "Day After Tomorrow"];
+var movieURL;
+var movieSearch
+var q
 
-
+function getMovie(arrayName) {
+    movieSearch = arrayName
+    q = movieSearch[movieNumber]
+    console.log(`MovieSearch[MovieNumber]: ` + q)
+    movieURL = "https://www.omdbapi.com/?t=" + q + "&apikey=trilogy"
+    $.ajax({
+        url: movieURL,
+        method: "GET"
+    })
+        .then(function (response) {
+            var pTitle = $('<p>').text(response.Title);
+            var pActors = $('<p>').text(response.Actors);
+            var pPlot = $('<p>').text(response.Plot);
+            var imgPoster = $('<img>').attr('src', response.Poster);
+            var d = $('<div>').append(pTitle, imgPoster, pPlot, pActors);
+            $('#movieList').html(d);
+        })
+};
 
 
 /// This is where out weather API JS is //////////////////////////////////////
@@ -43,27 +62,11 @@ var city;
 var queryURLWeather;
 
 console.log(queryURLWeather)
-function getMovie(){
-    var movieURL = "https://www.omdbapi.com/?t="+ q + "&apikey=trilogy"
-    $.ajax({
-        url: movieURL,
-        method: "GET"
-    })
-.then(function(response){
-    console.log(response);
-         var pTitle = $('<p>').text(response.Title);
-         var pActors = $('<p>').text(response.Actors);
-         var pPlot = $('<p>').text(response.Plot);
-         var imgPoster = $('<img>').attr('src', response.Poster);
-         var d = $('<div>').append(pTitle, imgPoster, pPlot, pActors);
-        $('#movieList').html(d);
-         })
-     };
 
 // Here we run our AJAX call to the OpenWeatherMap API
 $(document).on('click', ".cName", function () {
     city = $(this).text()
-    // $('#chosenCity').text(city);
+    $('#chosenCity').text(city);
     event.preventDefault();
     console.log(city);
     queryURLWeather = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${APIKeyWeather}`;
@@ -75,11 +78,9 @@ $(document).on('click', ".cName", function () {
         // We store all of the retrieved data inside of an object called "response"
         .then(function (response) {
             // Log the queryURLWeather
-            console.log(queryURLWeather);
+            console.log(`City's API URL: ` + queryURLWeather);
 
-            // Log the resulting object
-            console.log(response);
-            console.log(response.main.temp)
+
 
             // Transfer content to HTML
             $(".city").html("<h1><span id='cityName'></span> Weather Details</h1>");
@@ -93,25 +94,28 @@ $(document).on('click', ".cName", function () {
             cityWind = response.wind.speed; //Wind Speed
             cityName = response.name
             citySky = response.weather[0].main
-console.log(citySky);
+            console.log(`Weather Conditions: ` + citySky);
             //Pushs weather info into database
             weatherDBPush()
-           
+
             //Checks the tempature and displays the correct music on the page
-            if (citySky == ["Rain", "Drizzle", "Thunderstorm"]) {
-                // q = searchHot;
-                getMovie()
-              
-            } else if (citySky ==["Snow", "Atmosphere"]) {
-                // q = searchGood;
-                getMovie()
-            } else if (citySky == ["Clear"]) {
-                // q = searchCold;
-              getMovie();
-            }else if (citySky == "Clouds"){
-            console.log("test");
-            getMovie();
-        }
+            if (citySky == "Rain" || citySky == "Thunderstorm" || citySky == "Drizzle") {
+                randomMovieNumber(searchCloudy)
+                console.log(`Random Number: ` + movieNumber)
+                getMovie(searchRain)
+            } else if (citySky == "Snow" || citySky == "Atmosphere") {
+                randomMovieNumber(searchCloudy)
+                console.log(`Random Number: ` + movieNumber)
+                getMovie(searchSnow)
+            } else if (citySky == "Clear") {
+                randomMovieNumber(searchCloudy)
+                console.log(`Random Number: ` + movieNumber)
+                getMovie(searchClear);
+            } else if (citySky = "Clouds" || citySky == "Haze") {
+                randomMovieNumber(searchCloudy)
+                console.log(`Random Number: ` + movieNumber)
+                getMovie(searchCloudy);
+            }
         });
 })
 
@@ -158,3 +162,11 @@ db.ref().on("value", function (snapshot) {
         $('.tempSpan').text(value.Temp);
     }
 });
+
+// Random Gif chooser
+var movieNumber
+function randomMovieNumber(arrayName) {
+    console.log(`Length of array being searched: ` + arrayName.length)
+    movieNumber = Math.floor(Math.random() * arrayName.length);
+    console.log("Movie Number: " + movieNumber)
+}

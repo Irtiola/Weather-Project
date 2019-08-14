@@ -25,6 +25,13 @@ $("#citySubmit").on("click", function (event) {
     event.preventDefault();
     $("#cityChoice").val("");
 });
+
+// Random Gif chooser
+var gifNumber
+function randomGifNumber() {
+    var rand = Math.floor(Math.random() * 10);
+    gifNumber = rand;
+}
 /// This is where out GIF API JS is //////////////////////////////////////
 var apiKey = '?api_key=UPVjVwevOqPChTS9FFJ6lm8GhpmtVLPm';
 var gifSearch = ["so hot", "ahhh", "brrrr"];
@@ -91,9 +98,6 @@ $(document).on('click', ".cName", function () {
             $(".humidity").html("<p>Humidity: <span class='humSpan'></span></p>");
             $(".temp").html("<p>Temperature (F): <span class='tempSpan'></span></p>");
 
-
-
-
             //Fill in weather info
             cityTemp = response.main.temp; //Temp
             cityHum = response.main.humidity; //Humidity
@@ -138,7 +142,6 @@ const db = firebase.database();
 var cityWind;
 var cityTemp;
 var cityHum;
-var cityTemp;
 var cityName;
 
 function weatherDBPush() {
@@ -163,9 +166,3 @@ db.ref().on("value", function (snapshot) {
     }
 });
 
-// Random Gif chooser
-var gifNumber
-function randomGifNumber() {
-    var rand = Math.floor(Math.random() * 10);
-    gifNumber = rand;
-}

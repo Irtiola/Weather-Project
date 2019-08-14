@@ -27,9 +27,9 @@ $("#citySubmit").on("click", function (event) {
 });
 /// This is where out Movies API JS is //////////////////////////////////////
 var apiKey = '?api_key=UPVjVwevOqPChTS9FFJ6lm8GhpmtVLPm';
-var searchRain = ["The Notebook", "The Goonies", "Finding Nemo","Rain Man",];
+var searchRain = ["The Notebook", "The Goonies", "Finding Nemo", "Rain Man",];
 var searchClear = ["Meet The Fockers", "Toy Story", "Ferris Buelers Day Off"];
-var searchCloudy = ["Cloudy with a chance of meatballs", "The Fault in Our Stars", "Inside Out","Cloud Atlas","Partly Cloudy"];
+var searchCloudy = ["Cloudy with a chance of meatballs", "The Fault in Our Stars", "Inside Out", "Cloud Atlas", "Partly Cloudy"];
 var searchSnow = ["Jack Frost", "Snow Day", "Day After Tomorrow"];
 var movieURL;
 var movieSearch;
@@ -87,6 +87,7 @@ $(document).on('click', ".cName", function () {
             $(".wind").html("<p>Wind Speed: <span class='windSpan'></span></p> ");
             $(".humidity").html("<p>Humidity: <span class='humSpan'></span></p>");
             $(".temp").html("<p>Temperature (F): <span class='tempSpan'></span></p>");
+            $(".sky").html("<p>Temperature (F): <span class='skySpan'></span> </p>");
 
             //Fill weather info into variables
             cityTemp = response.main.temp; //Temp
@@ -160,7 +161,7 @@ db.ref().on("value", function (snapshot) {
         $('.windSpan').text(value.WindSpeed);
         $('.humSpan').text(value.Humidity);
         $('.tempSpan').text(value.Temp);
-        $('.sky').text(value.Sky);
+        $('.skySpan').text(value.Sky);
     }
 });
 

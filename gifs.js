@@ -166,3 +166,9 @@ db.ref().on("value", function (snapshot) {
     }
 });
 
+//mobile dropdown
+$( ".navbar-toggler").on("click", function(){
+
+    $("#navbarNav").toggleClass('collapse')
+    });
+ 

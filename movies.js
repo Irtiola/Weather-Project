@@ -172,3 +172,10 @@ function randomMovieNumber(arrayName) {
     movieNumber = Math.floor(Math.random() * arrayName.length);
     console.log("Movie Number: " + movieNumber)
 }
+
+//mobile dropdown
+$( ".navbar-toggler").on("click", function(){
+
+    $("#navbarNav").toggleClass('collapse')
+    });
+ 

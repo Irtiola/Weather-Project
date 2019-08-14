@@ -10,3 +10,7 @@ header{
     background-color: coral;
     border-bottom:2px solid lightgrey;
 }
+
+.navbar-collapse{
+    text-align: center;
+}

@@ -142,7 +142,7 @@ var cityName;
 var citySky;
 
 function weatherDBPush() {
-    db.ref().push({
+    db.ref("Movies").push({
         Temp: cityTemp,
         Humidity: cityHum,
         WindSpeed: cityWind,
@@ -152,7 +152,7 @@ function weatherDBPush() {
     });
 }
 
-db.ref().on("value", function (snapshot) {
+db.ref("Movies").on("value", function (snapshot) {
     var data = snapshot.val();
 
     for (var key in data) {

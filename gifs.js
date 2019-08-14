@@ -145,7 +145,7 @@ var cityHum;
 var cityName;
 
 function weatherDBPush() {
-    db.ref().push({
+    db.ref("Gifs").push({
         Temp: cityTemp,
         Humidity: cityHum,
         WindSpeed: cityWind,
@@ -154,7 +154,7 @@ function weatherDBPush() {
     });
 }
 
-db.ref().on("value", function (snapshot) {
+db.ref("Gifs").on("value", function (snapshot) {
     var data = snapshot.val();
 
     for (var key in data) {

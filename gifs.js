@@ -34,7 +34,7 @@ function randomGifNumber() {
 }
 /// This is where out GIF API JS is //////////////////////////////////////
 var apiKey = '?api_key=UPVjVwevOqPChTS9FFJ6lm8GhpmtVLPm';
-var gifSearch = ["so hot", "ahhh", "brrrr"];
+var gifSearch = ["sun hot", "awesome", "shivering"];
 var apiURL;
 var qGif = "Testing";
 

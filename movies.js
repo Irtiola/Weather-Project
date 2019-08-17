@@ -87,7 +87,7 @@ $(document).on('click', ".cName", function () {
             $(".wind").html("<p>Wind Speed: <span class='windSpan'></span></p> ");
             $(".humidity").html("<p>Humidity: <span class='humSpan'></span></p>");
             $(".temp").html("<p>Temperature (F): <span class='tempSpan'></span></p>");
-            $(".sky").html("<p>Temperature (F): <span class='skySpan'></span> </p>");
+            $(".sky").html("<p>Sky: <span class='skySpan'></span> </p>");
 
             //Fill weather info into variables
             cityTemp = response.main.temp; //Temp

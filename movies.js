@@ -173,7 +173,7 @@ function randomMovieNumber(arrayName) {
     console.log("Movie Number: " + movieNumber)
 }
 
-//mobile dropdown
+//mobile dropdown collapse
 $( ".navbar-toggler").on("click", function(){
 
     $("#navbarNav").toggleClass('collapse')

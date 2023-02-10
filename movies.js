@@ -25,14 +25,14 @@ $("#citySubmit").on("click", function (event) {
     event.preventDefault();
     $("#cityChoice").val("");
 });
-/// This is where out Music API JS is //////////////////////////////////////
+/// This is where out Movies API JS is //////////////////////////////////////
 var apiKey = '?api_key=UPVjVwevOqPChTS9FFJ6lm8GhpmtVLPm';
-var searchRain = ["The Notebook", "The Goonies", "Finding Nemo"];
+var searchRain = ["The Notebook", "The Goonies", "Finding Nemo", "Rain Man",];
 var searchClear = ["Meet The Fockers", "Toy Story", "Ferris Buelers Day Off"];
-var searchCloudy = ["Cloudy with a chance of meatballs", "The Fault in Our Stars", "Inside Out"];
+var searchCloudy = ["Cloudy with a chance of meatballs", "The Fault in Our Stars", "Inside Out", "Cloud Atlas", "Partly Cloudy"];
 var searchSnow = ["Jack Frost", "Snow Day", "Day After Tomorrow"];
 var movieURL;
-var movieSearch
+var movieSearch;
 var q
 
 function getMovie(arrayName) {
@@ -87,6 +87,7 @@ $(document).on('click', ".cName", function () {
             $(".wind").html("<p>Wind Speed: <span class='windSpan'></span></p> ");
             $(".humidity").html("<p>Humidity: <span class='humSpan'></span></p>");
             $(".temp").html("<p>Temperature (F): <span class='tempSpan'></span></p>");
+            $(".sky").html("<p>Sky: <span class='skySpan'></span> </p>");
 
             //Fill weather info into variables
             cityTemp = response.main.temp; //Temp
@@ -100,15 +101,15 @@ $(document).on('click', ".cName", function () {
 
             //Checks the tempature and displays the correct music on the page
             if (citySky == "Rain" || citySky == "Thunderstorm" || citySky == "Drizzle") {
-                randomMovieNumber(searchCloudy)
+                randomMovieNumber(searchRain)
                 console.log(`Random Number: ` + movieNumber)
                 getMovie(searchRain)
             } else if (citySky == "Snow" || citySky == "Atmosphere") {
-                randomMovieNumber(searchCloudy)
+                randomMovieNumber(searchSnow)
                 console.log(`Random Number: ` + movieNumber)
                 getMovie(searchSnow)
             } else if (citySky == "Clear") {
-                randomMovieNumber(searchCloudy)
+                randomMovieNumber(searchClear)
                 console.log(`Random Number: ` + movieNumber)
                 getMovie(searchClear);
             } else if (citySky = "Clouds" || citySky == "Haze") {
@@ -137,21 +138,21 @@ const db = firebase.database();
 var cityWind;
 var cityTemp;
 var cityHum;
-var cityTemp;
 var cityName;
 var citySky;
 
 function weatherDBPush() {
-    db.ref().push({
+    db.ref("Movies").push({
         Temp: cityTemp,
         Humidity: cityHum,
         WindSpeed: cityWind,
         City: cityName,
+        Sky: citySky,
         Time: firebase.database.ServerValue.TIMESTAMP
     });
 }
 
-db.ref().on("value", function (snapshot) {
+db.ref("Movies").on("value", function (snapshot) {
     var data = snapshot.val();
 
     for (var key in data) {
@@ -160,6 +161,7 @@ db.ref().on("value", function (snapshot) {
         $('.windSpan').text(value.WindSpeed);
         $('.humSpan').text(value.Humidity);
         $('.tempSpan').text(value.Temp);
+        $('.skySpan').text(value.Sky);
     }
 });
 
@@ -170,3 +172,10 @@ function randomMovieNumber(arrayName) {
     movieNumber = Math.floor(Math.random() * arrayName.length);
     console.log("Movie Number: " + movieNumber)
 }
+
+//mobile dropdown collapse
+$( ".navbar-toggler").on("click", function(){
+
+    $("#navbarNav").toggleClass('collapse')
+    });
+ 
